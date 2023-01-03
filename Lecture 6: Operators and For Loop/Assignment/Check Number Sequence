@@ -56,37 +56,27 @@ CODE:
 using namespace std;
 
 int main() {
-
   int n;
   cin >> n;
-  int p;
-  cin >> p;
-  bool isDec = true;
-  int i = 1, c;
-  while (i <= n - 1) {
-    cin >> c;
-
-    if (c > p) {
-      if (isDec == true) {
-        isDec = false;
-      }
-      isDec = true;
-      p = c;
-    } else if (c < p) {
-      if (isDec == false) {
-        isDec = false;
-      }
-      isDec = true;
-      p = c;
+  int current_term;
+  cin >> current_term;
+  bool isDecreasing = true, is_valid_sequence_yet = true;
+  int i = 2; // first term of sequence has already been taken
+  while (i <= n) {
+    int next_term;
+    cin >> next_term;
+    if (is_valid_sequence_yet && isDecreasing && current_term > next_term) {
+      current_term = next_term;
+      isDecreasing = true;
+    } else if (is_valid_sequence_yet && current_term < next_term) {
+      current_term = next_term;
+      isDecreasing = false;
     } else {
-      isDec = false;
-      break;
+      is_valid_sequence_yet = false;
     }
-
     i++;
   }
-
-  if (isDec) {
+  if (is_valid_sequence_yet) {
     cout << "true" << endl;
   } else {
     cout << "false" << endl;
