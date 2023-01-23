@@ -34,7 +34,7 @@ bool checkNumber(int input[], int size, int x) {
   if(i==size){
      return false;
   }
-  if(input[i]==size){
+  if(input[i]==x){
     return true;
   }
 
