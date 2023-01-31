@@ -1,0 +1,61 @@
+Given an array A of size n and an integer K, return all subsets of A which sum to K.
+Subsets are of length varying from 0 to n, that contain elements of the array. But the order of elements should remain same as in the input array.
+
+
+Note : The order of subsets are not important.
+
+
+Input format :
+Line 1 : Integer n, Size of input array
+Line 2 : Array elements separated by space
+Line 3 : K 
+Constraints :
+1 <= n <= 20
+Sample Input :
+9 
+5 12 3 17 1 18 15 3 17 
+6
+Sample Output :
+3 3
+5 1
+
+______________________________________________________________
+CODE:
+
+
+
+int subsetSumToK(int input[], int n, int o[][50], int k) {
+    // Write your code here
+	if(n==0){
+		if(k==0){
+			return 1;
+		}
+		else{
+			return 0;
+		}
+	}
+
+	int o1[10000][50];
+	int o2[10000][50];
+
+	int n1=subsetSumToK(input+1, n-1,o1, k-input[0]);
+	int n2=subsetSumToK(input+1, n-1, o2,k);
+
+	for(int i=0;i<n1;i++){
+		o[i][0]=o1[i][0]+1;
+		o[i][1]=input[0];
+
+		for(int j=2;j<=o1[i][0]+1;j++){
+			o[i][j]=o1[i][j-1];
+		}
+	}
+
+	for(int i=n1;i<n1+n2;i++){
+		o[i][0]=o[i-n1][0];
+
+		for(int j=0;j<=o2[i-n1][0];j++){
+			o[i][j]=o2[i-n1][j];
+		}
+	}
+	return n1+n2;
+}
